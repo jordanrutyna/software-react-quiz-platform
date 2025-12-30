@@ -1,6 +1,7 @@
 import Answer from './Answer'
 
-const Question = () => { //arrow function is modern way of writing JS
+const Question = ({questions}) => { //arrow function is modern way of writing JS
+  console.log('Question', questions);
   return (
     <div>
       <div className='question'>Text of Question</div>
