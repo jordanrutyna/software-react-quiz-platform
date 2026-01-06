@@ -2,10 +2,10 @@ import Answer from './Answer'
 import { useContext } from 'react';
 import { QuizContext } from '../contexts/quiz';
 
-const Question = ({questions}) => { //arrow function is modern way of writing JS
+const Question = () => { //arrow function is modern way of writing JS
   const [quizState, dispatch] = useContext(QuizContext) // '{variable}' render variable in markup
   const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
-  console.log('currentQuestion', currentQuestion);
+  // console.log('currentQuestion', currentQuestion);
   // console.log('Question', quizState);
   /* we don't want to make our answer component stateful, meaning inside Answer.js we 
   won't subscribe for our state for two reasons. 

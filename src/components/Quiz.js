@@ -4,7 +4,7 @@ import { QuizContext } from '../contexts/quiz';
 
 const Quiz = () => {
   const [quizState, dispatch] = useContext(QuizContext);
-  console.log('quizState', quizState);
+  // console.log('quizState', quizState);
   return (
     <div className='quiz'>
       {quizState.showResults && (
@@ -12,7 +12,7 @@ const Quiz = () => {
           <div className='congratulations'>Congratulations</div>
           <div className='results-info'>
             <div>You have completed the quiz!</div>
-            <div>You've got 4 of {quizState.questions.length}</div>
+            <div>You've got {quizState.correctAnswersCount} of {quizState.questions.length}</div>
           </div>
           <div className='next-button' onClick={() => dispatch({ type: "RESTART"})}>Restart</div>
         </div>
