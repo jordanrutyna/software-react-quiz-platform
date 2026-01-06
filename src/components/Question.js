@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { QuizContext } from '../contexts/quiz';
 
 const Question = ({questions}) => { //arrow function is modern way of writing JS
-  const [quizState] = useContext(QuizContext) // '{variable}' render variable in markup
+  const [quizState, dispatch] = useContext(QuizContext) // '{variable}' render variable in markup
   const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
   console.log('currentQuestion', currentQuestion);
   // console.log('Question', quizState);
@@ -28,7 +28,16 @@ const Question = ({questions}) => { //arrow function is modern way of writing JS
       <div className='question'>{currentQuestion.question}</div>
       <div className='answers'> 
         {quizState.answers.map((answer, index) => (
-          <Answer answerText={answer} key={index}/>
+          <Answer 
+          answerText={answer} 
+          key={index}
+          index={index}
+          currentAnswer={quizState.currentAnswer}
+          correctAnswer={currentQuestion.correctAnswer}
+          onSelectAnswer={(answerText) =>
+            dispatch({ type: "SELECT_ANSWER", payload: answerText })
+          }
+          />
         ))}
       </div>
     </div>
