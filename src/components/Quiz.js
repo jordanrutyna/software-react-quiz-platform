@@ -8,7 +8,7 @@ const Quiz = () => {
   // console.log('quizState', quizState);
   
   useEffect(() => { // add for api 
-    if (quizState.questions.length > 0) { // add check for restart button to work
+    if (quizState.questions.length > 0 || quizState.error) { // add check for restart button to work
       return;
     }
     console.log('on initialize');
@@ -18,11 +18,23 @@ const Quiz = () => {
       .then(data => {
         console.log("data", data);
         dispatch({ type: "LOADED_QUESTIONS", payload: data.results });
+      })
+      .catch(err => { // catch server errors
+        console.log('err', err.message);
+        dispatch({ type: "SERVER_ERROR", payload: err.message });
       });
   }); // change from }, []); for restart button to work (removed empty array)
 
   return (
     <div className='quiz'>
+      {quizState.error && (
+        <div className='results'>
+          <div className='congratulations'>Server error</div>
+          <div className='results-info'>
+            <div>{quizState.error}</div>
+          </div>
+        </div>
+      )}
       {quizState.showResults && (
         <div className='results'>
           <div className='congratulations'>Congratulations</div>

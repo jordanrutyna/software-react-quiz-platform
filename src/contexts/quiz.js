@@ -9,6 +9,7 @@ const initialState = {
   answers: [],         // changed for api from 'answers: shuffleAnswers(questions[0]),'
   currentAnswer: '',
   correctAnswersCount: 0,
+  error: null,
 }
 
 const reducer = (state, action) => {
@@ -54,6 +55,12 @@ const reducer = (state, action) => {
         questions: normalizedQuestions,
         answers: shuffleAnswers(normalizedQuestions[0]),
       }
+    }
+    case "SERVER_ERROR": {
+      return {
+        ...state,
+        error: action.payload,
+      };
     }
     default: {
       return state;
