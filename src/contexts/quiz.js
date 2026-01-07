@@ -1,12 +1,12 @@
 import { createContext, useReducer } from "react";
-import questions from "../data";
-import { shuffleAnswers } from "../helpers";
+// import questions from "../data"; // remove for api
+import { normalizeQuestions, shuffleAnswers } from "../helpers";
 
 const initialState = {
   currentQuestionIndex: 0,
-  questions,                // short form for 'questions: questions'
+  questions: [],       // changed for api from 'questions,' (short form 'questions: questions')
   showResults: false,
-  answers: shuffleAnswers(questions[0]),
+  answers: [],         // changed for api from 'answers: shuffleAnswers(questions[0]),'
   currentAnswer: '',
   correctAnswersCount: 0,
 }
@@ -46,36 +46,24 @@ const reducer = (state, action) => {
     case "RESTART": {
       return initialState;
     }
+    case "LOADED_QUESTIONS": {
+      console.log('LOADED_QUESTIONS', state, action);
+      const normalizedQuestions = normalizeQuestions(action.payload);
+      return {
+        ...state,
+        questions: normalizedQuestions,
+        answers: shuffleAnswers(normalizedQuestions[0]),
+      }
+    }
     default: {
       return state;
     }
   }
-
-  // if (action.type === 'NEXT_QUESTION') {
-  //   const showResults = state.currentQuestionIndex === state.questions.length - 1;
-  //   const currentQuestionIndex = showResults 
-  //     ? state.currentQuestionIndex 
-  //     : state.currentQuestionIndex + 1;
-  //   const answers = showResults 
-  //     ? [] 
-  //     : shuffleAnswers(state.questions[currentQuestionIndex]);
-  //   return {
-  //     ...state, 
-  //     currentQuestionIndex: state.currentQuestionIndex + 1, 
-  //     showResults,
-  //     answers,
-  //   };
-  // }
-  // if (action.type === 'RESTART') {
-  //   return initialState;
-  // }
-  // return state;
 }
 
 export const QuizContext = createContext();
 
 export const QuizProvider = ({ children }) => {
-  // const [state, dispatch] = useReducer(reducer, initialState);
   const value = useReducer(reducer, initialState);
   // console.log("state", value)
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
