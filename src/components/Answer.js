@@ -7,7 +7,7 @@ const Answer = ({answerText, onSelectAnswer, index, currentAnswer, correctAnswer
   const wrongAnswerClass = isWrongAnswer ? 'wrong-answer' : '';
   const disabledClass = currentAnswer ? 'disabled-answer' : '';
 
-  return ( //Round brackets to write markup on several lines
+  return (
     <div 
       className={`answer ${correctAnswerClass} ${wrongAnswerClass} ${disabledClass}`} 
       onClick={() => onSelectAnswer(answerText)}

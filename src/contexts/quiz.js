@@ -1,12 +1,11 @@
 import { createContext, useReducer } from "react";
-// import questions from "../data"; // remove for api
 import { normalizeQuestions, shuffleAnswers } from "../helpers";
 
 const initialState = {
   currentQuestionIndex: 0,
-  questions: [],       // changed for api from 'questions,' (short form 'questions: questions')
+  questions: [],
   showResults: false,
-  answers: [],         // changed for api from 'answers: shuffleAnswers(questions[0]),'
+  answers: [],
   currentAnswer: '',
   correctAnswersCount: 0,
   error: null,
